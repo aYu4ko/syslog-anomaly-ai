@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+api/venv/
+uploads/
+api/uploads/
+*.pkl
+*.joblib
+node_modules/
+dashboard/node_modules/
+dashboard/build/
+.env
+.vscode/
+.idea/
+.DS_Store
