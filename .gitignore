@@ -8,8 +8,12 @@ api/uploads/
 *.pkl
 *.joblib
 node_modules/
+dist/
 dashboard/node_modules/
 dashboard/build/
+server.ts
+metadata.json
+bun.lock
 .env
 .vscode/
 .idea/

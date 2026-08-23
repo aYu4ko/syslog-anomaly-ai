@@ -1,2 +1,2 @@
-def log_message(message):
-    print(f'LOG: {message}')
+def format_prediction(result):
+    return f"Status: {result}"

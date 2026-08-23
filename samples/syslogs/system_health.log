@@ -1,5 +1,0 @@
-[2026-07-26 04:00:01] cachyos-node-01 systemd[1]: Started System Logging Service.
-[2026-07-26 04:01:12] cachyos-node-01 kernel: kexec_core: Starting new kernel
-[2026-07-26 04:02:45] cachyos-node-01 cron[142]: (root) CMD (run-parts /etc/cron.hourly)
-[2026-07-26 04:03:10] cachyos-node-01 sshd[892]: Accepted publickey for admin from 192.108.1.20 port 54321 ssh2
-[2026-07-26 04:05:00] cachyos-node-01 systemd[1]: Cleaned up temporary directories.

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: syslog-anomaly-ai
+    runtime: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn -w 2 -k gthread --threads 4 -b 0.0.0.0:$PORT api.main:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: NODE_VERSION
+        value: 20.14.0

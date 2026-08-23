@@ -1,6 +1,0 @@
-[2026-07-26 05:12:01] kernel-worker-02 kernel: [ 1234.567890] Critical CPU thermal throttle activated! CPU usage at 100%.
-[2026-07-26 05:12:02] kernel-worker-02 kernel: [ 1234.567912] ERROR: Disk I/O failure detected on /dev/nvme0n1p2.
-[2026-07-26 05:12:03] kernel-worker-02 systemd[1]: Failed to write to disk cache. Buffer I/O error.
-[2026-07-26 05:12:04] kernel-worker-02 kernel: [ 1234.568001] Kernel panic - not syncing: Fatal exception in interrupt!
-[2026-07-26 05:12:05] kernel-worker-02 hardware-monitor: ERROR: CPU voltage regulator failure. Disk controller unresponsive.
-[2026-07-26 05:12:06] kernel-worker-02 kernel: [ 1234.568111] FAIL: Subsystem disk-audit terminated unexpectedly with error code 4.

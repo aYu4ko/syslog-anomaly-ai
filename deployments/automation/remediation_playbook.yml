@@ -1,8 +1,0 @@
----
-- name: Fix Server Issues
-  hosts: servers
-  tasks:
-    - name: Restart service
-      service:
-        name: httpd
-        state: restarted

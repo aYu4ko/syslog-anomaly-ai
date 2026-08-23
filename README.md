@@ -1,8 +1,18 @@
-# ⚡ syslog-anomaly-ai
+# ⚡ Syslog Anomaly AI
 
-> **Predictive SRE & Log Telemetry Pipeline for Linux Infrastructure**
+> **AI Linux Observability Pipeline & Predictive Telemetry**
 
-`syslog-anomaly-ai` bridges machine learning and infrastructure automation. It ingests unstructured Linux syslogs, extracts operational telemetry vectors, and uses predictive models to spot system anomalies before downtime occurs—triggering self-healing Ansible playbooks automatically.
+**Syslog Anomaly AI** vectorizes Linux syslog streams to predict system failures before downtime occurs. It combines a Scikit-Learn inference engine with a Flask REST API and Server-Sent Events (SSE) stream, delivering real-time telemetry metrics and risk scores directly to a modern React dashboard.
+
+---
+
+## ⚡ Tech Stack & Overview
+
+- **Stack:** Python, Scikit-Learn, Flask, React.js, Linux
+- **Vectorized Observability:** Ingests raw syslog streams and extracts key operational vectors (`[errors, cpu, disk]`).
+- **Scikit-Learn Inference:** Evaluates failure probabilities using trained Random Forest decision trees (`predict_proba()`) to generate continuous risk scores ($0.0\%$ to $100.0\%$).
+- **Live SSE Stream:** Broadcasts real-time system metrics and risk assessments over Server-Sent Events.
+- **Interactive React UI:** Real-time sparkline telemetry waveforms, immediate anomaly injection testing, file batch analysis, and an incident audit log.
 
 ---
 
@@ -10,11 +20,10 @@
 
 | Layer | Responsibility | Primary Tech |
 | :--- | :--- | :--- |
-| **Ingestion & API** | REST endpoints for log uploads and real-time evaluation | `Flask`, `Pandas`, `NumPy` |
-| **Inference Engine** | Vectorizes log features and classifies anomaly risk | `Scikit-Learn` (Random Forest) |
-| **Telemetry UI** | Interactive upload, live risk metrics, and prediction logs | `React 18`, `Axios` |
-| **Self-Healing** | Automated host remediation upon critical anomaly flags | `Ansible` Playbooks |
-| **Orchestration** | Multi-container development and K8s deployment manifests | `Docker`, `Docker Compose`, `Kubernetes` |
+| **Linux Vectorizer & Ingest** | Extracts error patterns, CPU pressure, and disk latency from syslogs | `Python`, `Flask` |
+| **Inference Engine** | Scikit-Learn model calculating continuous failure risk scores | `Scikit-Learn` (Random Forest) |
+| **Streaming API** | Server-Sent Events (SSE) real-time metric transport & REST endpoints | `Flask`, `EventSource` |
+| **Dashboard UI** | Live risk gauge, metric sparklines, batch upload & anomaly inspector | `React 18`, `Lucide Icons` |
 
 ---
 
@@ -23,75 +32,41 @@
 ```text
 syslog-anomaly-ai/
 ├── api/
-│   ├── main.py                  # API service entry point
-│   ├── requirements.txt         # Core backend dependencies
-│   ├── core/                    # System utilities & logger helpers
-│   ├── models/                  # ML training script & serializations
-│   └── services/                # Log parsing & anomaly evaluation pipelines
-├── dashboard/
-│   ├── package.json             # React dependencies
-│   └── src/
-│       ├── App.jsx              # Main dashboard wrapper
-│       └── components/          # StreamIngest, TelemetryMetrics, AnomalyInspector
-├── deployments/
-│   ├── docker/                  # Backend & Frontend Dockerfiles
-│   ├── k8s/                     # Kubernetes manifests
-│   └── automation/              # Ansible playbook & inventory
-├── samples/
-│   └── syslogs/                 # Training logs & dataset samples
-└── docker-compose.yml           # Unified stack runner
+│   ├── main.py                  # Flask API, SSE stream & static SPA server
+│   ├── requirements.txt         # Python dependencies (Flask, Scikit-Learn, Gunicorn)
+│   ├── models/                  # Scikit-Learn model & training routines
+│   └── services/                # Syslog parser & feature vectorization
+├── src/
+│   ├── App.jsx                  # Main application component
+│   ├── components/              # LiveTelemetryStream, StreamIngest, AnomalyInspector
+│   └── styles/                  # Clean high-contrast dark dashboard theme
+├── samples/                     # Sample baseline and critical syslog files
+├── server.ts                    # Node/Express development gateway (for dev environment)
+└── package.json                 # Node dependencies & build scripts
 ```
 
 ---
 
-## 🚀 Execution Guide
+## 💻 Local Development
 
-### Option A: Launch with Docker Compose
-
-To spin up the entire API and React UI stack concurrently:
-
+### 1. Unified Dev Mode
 ```bash
-docker-compose up --build
-```
-- **React Dashboard:** `http://localhost:3000`
-- **Backend Service:** `http://localhost:8000`
-
----
-
-### Option B: Local Microservice Setup
-
-#### 1. Backend Ingest Engine
-```bash
-cd api
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python main.py
-```
-
-#### 2. React Dashboard
-```bash
-cd dashboard
 npm install
-npm start
+pip install -r api/requirements.txt
+npm run dev
 ```
+The application will launch on `http://localhost:3000`.
 
-#### 3. Model Re-Training
-To regenerate `anomaly_model.pkl` with custom datasets:
+### 2. Standalone Production Mode (Pure Python)
 ```bash
-cd api
-python -m models.detector
+npm run build
+pip install -r api/requirements.txt
+python api/main.py
 ```
-
-#### 4. Automated Host Remediation
-To execute self-healing tasks across configured target servers:
-```bash
-ansible-playbook -i deployments/automation/inventory.ini deployments/automation/remediation_playbook.yml
-```
+Open `http://localhost:5000` (Flask will serve both the React frontend and the Scikit-Learn API).
 
 ---
 
-## 📄 License
+## 🔒 License
 
-Distributed under the **MIT License**.
-# syslog-anomaly-ai
+Personal Project. All rights reserved.
